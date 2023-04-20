@@ -1,66 +1,24 @@
-﻿
+﻿using System;
 
 namespace BankAccountNS
 {
-    /// <summary>
-    /// Bank account demo class.
-    /// </summary>
-    public class BankAccount
+    class Program
     {
-        private readonly string m_customerName;
-        private double m_balance;
-        public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
-        public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
-        public const string CreditAmountLessThanZeroMessage = "Debit amount is less than zero";
-
-        public BankAccount(string customerName, double balance)
+        static void Main(string[] args)
         {
-            m_customerName = customerName;
-            m_balance = balance;
-        }
+            BankCustomer customer = new BankCustomer("Mr. Bryan Walton", 11.99);
+            customer.AddAccount(1000.0);
 
-        public string CustomerName
-        {
-            get { return m_customerName; }
-        }
+            customer.Accounts[0].Credit(5.77);
+            customer.Accounts[0].Debit(11.22);
+            Console.WriteLine("Customer {0} has a balance of ${1} in account 1", customer.CustomerName, customer.Accounts[0].Balance);
 
-        public double Balance
-        {
-            get { return m_balance; }
-        }
+            customer.Accounts[1].Credit(500.0);
+            customer.Accounts[1].Debit(100.0);
+            Console.WriteLine("Customer {0} has a balance of ${1} in account 2", customer.CustomerName, customer.Accounts[1].Balance);
 
-        public void Debit(double amount)
-        {
-            if (amount > m_balance)
-            {
-                throw new System.ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
-            }
+            customer.CloseAccount(customer.Accounts[1]);
 
-            if (amount < 0)
-            {
-                throw new System.ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
-            }
-
-            m_balance -= amount;
-        }
-
-        public void Credit(double amount)
-        {
-            if (amount < 0)
-            {
-                throw new ArgumentOutOfRangeException("amount", amount, CreditAmountLessThanZeroMessage);
-            }
-
-            m_balance += amount;
-        }
-
-        public static void Main()
-        {
-            BankAccount ba = new BankAccount("Mr. Bryan Walton", 11.99);
-
-            ba.Credit(5.77);
-            ba.Debit(11.22);
-            Console.WriteLine("Current balance is ${0}", ba.Balance);
         }
     }
 }
