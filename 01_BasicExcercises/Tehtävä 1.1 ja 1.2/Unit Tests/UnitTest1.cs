@@ -1,3 +1,6 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Tehtävä_1._1_ja_1._2;
+
 namespace Unit_Tests
 {
     [TestClass]
@@ -243,5 +246,6 @@ namespace Unit_Tests
             // Act
             Mathematics.CalculateAverage(numbers);
         }
+
     }
 }
