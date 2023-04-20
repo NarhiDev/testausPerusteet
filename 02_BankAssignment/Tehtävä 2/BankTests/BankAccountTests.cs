@@ -131,5 +131,21 @@ namespace BankTests
             // Assert
             Assert.AreEqual(0, customer.Accounts.Count);
         }
+
+        [TestMethod]
+        public void Transfer_TransfersFundsBetweenAccounts()
+        {
+            // Arrange
+            BankAccount sourceAccount = new BankAccount(1000.0);
+            BankAccount targetAccount = new BankAccount(500.0);
+
+            // Act
+            BankAccount.Transfer(sourceAccount, targetAccount, 250.0);
+
+            // Assert
+            Assert.AreEqual(750.0, sourceAccount.Balance);
+            Assert.AreEqual(750.0, targetAccount.Balance);
+        }
+
     }
 }

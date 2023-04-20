@@ -44,6 +44,23 @@ namespace BankAccountNS
 
             m_balance += amount;
         }
+
+        public static void Transfer(BankAccount sourceAccount, BankAccount targetAccount, double amount)
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentException("Amount must be positive.");
+            }
+
+            if (sourceAccount.Balance < amount)
+            {
+                throw new InvalidOperationException("Insufficient funds.");
+            }
+
+            sourceAccount.Debit(amount);
+            targetAccount.Credit(amount);
+        }
+
     }
 }
 
